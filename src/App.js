@@ -4,7 +4,6 @@ import './App.css';
 
 // Build a Component - Period 2
 function App() {
-  // Handler Functions and Props- Period 3
   // Rendering a List- Period 1
   // define the array of objects
   const users = [
@@ -19,12 +18,13 @@ function App() {
       followers: 1,
       following: 1}
   ];
-  // create a new handler function before the return statement - use an arrow function for the syntax
-  // the parameter - use e/event
+   // Handler Functions and Props- Period 3
+    // create a new handler function before the return statement - use an arrow function for the syntax
+    // the parameter - use e/event
   const handleUserNameChange = (e) => {
     // to only log the parameter --> console.log(e)
-    console.group()
-    console.log(e.target.value) // Attach this parameter to input's on change event
+    console.group();
+    console.log(e.target.value); // Attach this parameter to input's on change event
     // What should be happening: You should see a console log happening with every keyboard type in the input field --> YES
   }
   return (
