@@ -1,4 +1,4 @@
-// import logo from './logo.svg';
+// UNIT 3.0 INTRO TO REACT CW
 import React from 'react';
 import './App.css';
 
