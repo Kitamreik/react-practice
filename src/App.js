@@ -40,6 +40,7 @@ function App() {
     // set the state that will hold the user name to the value entered into the field
     setUserName(e.target.value);
     console.warn(setUserName(e.target.value));
+    console.groupEnd("END")
   }
   return (
     <div className="App">
