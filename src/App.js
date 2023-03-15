@@ -1,12 +1,18 @@
-// import logo from './logo.svg';
+// 3.1 REACT HOOKS
+// CW: useState and React Lifecycle
+import React, { useState } from 'react'; //  you can write this way combined
+// write the statements separately
+/*
+import { useState } from 'react';
 import React from 'react';
+*/ 
 import './App.css';
+// import the components needed to render
+import { UserItem } from './User/UserItem';
+import UserForm from './User/UserForm';
 
-// Build a Component - Period 2
 function App() {
-  // Rendering a List- Period 1
-  // define the array of objects
-  const users = [
+    const users = [
     {id: 1,
     name: "Kit",
     location: "Denver, CO",
@@ -18,46 +24,41 @@ function App() {
       followers: 1,
       following: 1}
   ];
-   // Handler Functions and Props- Period 3
-    // create a new handler function before the return statement - use an arrow function for the syntax
-    // the parameter - use e/event
+
+  // creating state and the setter function- This state will keep the value of the user input via input field. The value will represent a username. 
+  // Syntax: const [current state, state to change] = useState(initial value)
+  const [userName, setUserName] = useState("");
+  // Initial value of the state is an empty string
+
   const handleUserNameChange = (e) => {
     // to only log the parameter --> console.log(e)
-    console.group();
+    console.group("LOG THE CHANGES");
     console.log(e.target.value); // Attach this parameter to input's on change event
-    // What should be happening: You should see a console log happening with every keyboard type in the input field --> YES
+    console.groupEnd("END")
+    console.group("--------- 3.1 -------")
+    console.log("Setting State from the UserName")
+    // set the state that will hold the user name to the value entered into the field
+    setUserName(e.target.value);
+    console.warn(setUserName(e.target.value));
   }
   return (
     <div className="App">
       <h1>Users</h1> {/* add a title */}
-        <label htmlFor='user-name'>User Name: </label>
-        <input id='user-name' name='user-name' type='text' onChange={handleUserNameChange} />
-        <hr /> {/* add a line break */}
-
-        {/* Remember to add the newly created component instantiation in place of the removed list mapping in the App component */}
+        {/* -----3.1----- */}
+        {/* moving the input and label to it's own component file --> UserForm */} {/* PASS THE PROPS: target the userName and pass through "userName" as the parameter as well as the handler function */}
+      <UserForm
+        userName={userName}
+        handleUserNameChange={handleUserNameChange}
+      />
+      <hr /> {/* add a line break */}
       <UserItem users={users}/>
       {/* target the users and pass through "users" as the parameter */}
     </div>
   );
 }
 
+// 3.1 move the component of UserItem to a new folder/file structure
 // moving the component outside
-function UserItem(props) {
-  // call props as the parameter
-  return (
-    // to cycle through, call props before the users
-    props.users.map(list => (
-      <ul>
-        <li>Name: {list.name}</li>
-        <li>Location: {list.location}</li>
-        <li>Followers: {list.followers}</li>
-        <li>Following: {list.following}</li>
-      </ul>
-    )
-    )
-  )
-}
-
 
 export default App;
 
