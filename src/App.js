@@ -1,6 +1,9 @@
 // 3.1 REACT HOOKS
+// CW: useEffect and Props Handling - We want to save the user name to local storage in the browser every time user enters a new input. We will then take that value from local storage and use it somewhere else.
+// import useEffect
+
 // CW: useState and React Lifecycle
-import React, { useState } from 'react'; //  you can write this way combined
+import React, { useState, useEffect } from 'react'; //  you can write this way combined
 // write the statements separately
 /*
 import { useState } from 'react';
@@ -8,7 +11,7 @@ import React from 'react';
 */ 
 import './App.css';
 // import the components needed to render
-import { UserItem } from './User/UserItem';
+import UserItem  from './User/UserItem';
 import UserForm from './User/UserForm';
 
 function App() {
@@ -29,6 +32,15 @@ function App() {
   // Syntax: const [current state, state to change] = useState(initial value)
   const [userName, setUserName] = useState("");
   // Initial value of the state is an empty string
+
+  // start useEffect Hook
+  useEffect(() => {
+    // first - In the anonymous function of the useEffect parameter, store an item called "UserName" to the local storage 
+  
+    localStorage.setItem("User Name:", userName); 
+  }, [userName]) // In the dependencies array of useEffect, use `userName`, one of the states of the component.
+
+  // end
 
   const handleUserNameChange = (e) => {
     // to only log the parameter --> console.log(e)
