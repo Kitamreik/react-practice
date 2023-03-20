@@ -1,8 +1,11 @@
 // 3.1 REACT HOOKS
-// CW: useEffect and Props Handling - We want to save the user name to local storage in the browser every time user enters a new input. We will then take that value from local storage and use it somewhere else.
-// import useEffect
-
+// CW: useRef and Handler Functions
+// CW: useEffect and Props Handling 
+/*
+// - We want to save the user name to local storage in the browser every time user enters a new input. We will then take that value from local storage and use it somewhere else.
+*/ 
 // CW: useState and React Lifecycle
+// import useEffect and useRef
 import React, { useState, useEffect } from 'react'; //  you can write this way combined
 // write the statements separately
 /*
@@ -12,7 +15,8 @@ import React from 'react';
 import './App.css';
 // import the components needed to render
 import UserItem  from './User/UserItem';
-import UserForm from './User/UserForm';
+// import UserForm from './User/UserForm'; // changed into Input Field
+import InputField from './shared/InputField';
 
 function App() {
     const users = [
@@ -28,17 +32,21 @@ function App() {
       following: 1}
   ];
 
+  /*
   // creating state and the setter function- This state will keep the value of the user input via input field. The value will represent a username. 
   // Syntax: const [current state, state to change] = useState(initial value)
-  const [userName, setUserName] = useState("");
   // Initial value of the state is an empty string
-
-  // start useEffect Hook
-  useEffect(() => {
-    // first - In the anonymous function of the useEffect parameter, store an item called "UserName" to the local storage 
+  */ 
+  const [userName, setUserName] = useState("");
   
+  // start useEffect Hook
+  /*
+   // first - In the anonymous function of the useEffect parameter, store an item called "UserName" to the local storage 
+  // In the dependencies array of useEffect, use `userName`, one of the states of the component.
+  */ 
+  useEffect(() => { 
     localStorage.setItem("User Name:", userName); 
-  }, [userName]) // In the dependencies array of useEffect, use `userName`, one of the states of the component.
+  }, [userName]) 
 
   // end
 
@@ -54,18 +62,33 @@ function App() {
     console.warn(setUserName(e.target.value));
     console.groupEnd("END")
   }
+  // 3.1 NEW HF
+  /*
+  Add a new handler function to be used to display more information about each user. (use a name that starts with "handle" and something meaningful for what it does)
+  This function will take a parameter, which will be the `user` object. When this function ran, we will only console log the user name for now.
+  */ 
+  const handleUserInfo = (list) => {
+    console.log(`You selected ${list.name}`);
+  }
+
+  // end
   return (
     <div className="App">
       <h1>Users</h1> {/* add a title */}
-        {/* -----3.1----- */}
-        {/* moving the input and label to it's own component file --> UserForm */} {/* PASS THE PROPS: target the userName and pass through "userName" as the parameter as well as the handler function */}
-      <UserForm
-        userName={userName}
-        handleUserNameChange={handleUserNameChange}
-      />
+        {/* -----3.1 REFACTORING----- */}
+      <InputField
+        id="user-name"
+        type="text"
+        value={userName}
+        onChangeFunction={handleUserNameChange}
+        isFocused
+      >
+        User:
+      </InputField>
+
       <hr /> {/* add a line break */}
-      <UserItem users={users}/>
-      {/* target the users and pass through "users" as the parameter */}
+      <UserItem users={users} handleUserInfo={handleUserInfo}/>
+      {/* REFACTORED: handleUserInfo */}
     </div>
   );
 }
